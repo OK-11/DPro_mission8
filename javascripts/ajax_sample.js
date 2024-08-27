@@ -4,7 +4,7 @@ const titleArea = document.getElementById("title");
 const contentArea = document.getElementById("content");
 const button = document.getElementById('btn');
 
-let jsonDate;
+let jsonDate = [];
 
 function getData() {
   const request = new XMLHttpRequest();
@@ -22,22 +22,26 @@ function getData() {
 
 
 function changeVideo() {
-  // ボタンがクリックされた際の処理を記述
-  // ajax.jsonからデータを取得していない場合のみ、getDataの処理を呼び出す
-    button.addEventListener('click', e => {
-        if (jsonDate==null) {
-          getData();
-        } else {
-          titleArea.innerHTML = jsonDate[number].title;
-          contentArea.innerHTML = jsonDate[number].content;
-          videoArea.setAttribute("src", jsonDate[number].url);
-          if (number==2) {
-            number = 0;
-          } else {
-            number++;
-          }
-        }   
-    })
+  button.addEventListener('click', e => {
+    if (jsonDate.length == 0) {
+      getData();
+    } else {
+      titleArea.innerHTML = jsonDate[number].title;
+      contentArea.innerHTML = jsonDate[number].content;
+      videoArea.setAttribute("src", jsonDate[number].url);
+      if (number==2) {
+        number = 0;
+      } else {
+        number++;
+      }
+    }
+  })
 }
 
-window.onload = changeVideo;
+
+function set(){
+  getData();
+  changeVideo();
+}
+window.onload = set;
+
